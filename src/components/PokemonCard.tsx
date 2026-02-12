@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import * as React from "react";
+import React, { memo } from "react"; // 1. Importar memo
 import { Pressable } from "react-native";
 import { Card, useTheme } from "react-native-paper";
 
@@ -8,7 +8,7 @@ type CardProps = {
   image: string;
 };
 
-const CardComponent = ({ title, image }: CardProps) => {
+const CardComponent = memo(({ title, image }: CardProps) => {
   const router = useRouter();
   const { colors } = useTheme();
 
@@ -36,7 +36,8 @@ const CardComponent = ({ title, image }: CardProps) => {
             textTransform: "capitalize",
             fontSize: 20,
             fontWeight: "bold",
-            color: colors.primary,
+
+            color: colors.onSurface,
           }}
         />
         <Card.Cover
@@ -46,6 +47,7 @@ const CardComponent = ({ title, image }: CardProps) => {
       </Card>
     </Pressable>
   );
-};
+});
 
+CardComponent.displayName = "CardComponent";
 export default CardComponent;

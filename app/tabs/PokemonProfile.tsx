@@ -1,3 +1,4 @@
+import { Stack } from "expo-router";
 import {
   ActivityIndicator,
   FlatList,
@@ -5,13 +6,26 @@ import {
   Pressable,
   View,
 } from "react-native";
-import { Avatar, Chip, MD3Colors, ProgressBar, Text } from "react-native-paper";
+import {
+  Avatar,
+  Chip,
+  IconButton,
+  MD3Colors,
+  ProgressBar,
+  Text,
+} from "react-native-paper";
 import AmplifyImage from "../../src/components/modal/AmplifyImage";
 import { usePokemonProfileController } from "../../src/controllers/usePokemonProfileController";
 
 export default function PokemonProfile() {
-  const { pokemon, loading, isShowingModal, setIsShowingModal } =
-    usePokemonProfileController();
+  const {
+    pokemon,
+    loading,
+    isShowingModal,
+    setIsShowingModal,
+    isFavorite,
+    handleToggleFavorite,
+  } = usePokemonProfileController();
 
   if (loading) {
     return (
@@ -35,6 +49,20 @@ export default function PokemonProfile() {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
+      <Stack.Screen
+        options={{
+          title: pokemon.name.toUpperCase(),
+          headerRight: () => (
+            <IconButton
+              icon={isFavorite ? "heart" : "heart-outline"}
+              iconColor={isFavorite ? MD3Colors.error50 : undefined}
+              size={28}
+              onPress={handleToggleFavorite}
+            />
+          ),
+        }}
+      />
+
       <View style={{ flex: 1, alignItems: "center", padding: 20 }}>
         <Pressable onPress={() => setIsShowingModal(true)}>
           <Avatar.Image size={150} source={{ uri: pokemon.image }} />

@@ -1,11 +1,17 @@
 import { Pokemon, PokemonInfo } from "../models/Pokemon";
 
-const PokeApiURL = "https://pokeapi.co/api/v2/pokemon?limit=100ffset=0";
-const PokemonURL = "https://pokeapi.co/api/v2/pokemon/";
+const PokeApiURL = "https://pokeapi.co/api/v2/pokemon";
 
-export async function getListPokemons(): Promise<Pokemon[]> {
+export const PAGE_SIZE = 20;
+
+export async function getListPokemons(
+  offset: number = 0,
+  limit: number = PAGE_SIZE,
+): Promise<Pokemon[]> {
   try {
-    const response = await fetch(PokeApiURL);
+    const response = await fetch(
+      `${PokeApiURL}?limit=${limit}&offset=${offset}`,
+    );
     const data = await response.json();
 
     const detailedPokemons = await Promise.all(
@@ -27,7 +33,7 @@ export async function getListPokemons(): Promise<Pokemon[]> {
 
 export async function getPokemon(name: string): Promise<PokemonInfo | null> {
   try {
-    const response = await fetch(`${PokemonURL}${name}`);
+    const response = await fetch(`${PokeApiURL}/${name}`);
     const data = await response.json();
 
     return {
