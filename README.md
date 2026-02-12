@@ -1,50 +1,77 @@
-# Welcome to your Expo app 👋
+# 📱 React Native Pokédex
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Uma aplicação móvel robusta para consultar Pokémons, desenvolvida com **React Native** e **Expo**. Este projeto demonstra a aplicação de boas práticas de arquitetura, gestão de estado global e persistência de dados.
 
-## Get started
+## ✨ Funcionalidades
 
-1. Install dependencies
+- **Listagem Infinita (Infinite Scroll):** Carregamento paginado de Pokémons para performance otimizada (lotes de 20 itens).
+- **Pesquisa Dinâmica:** Busca de Pokémons específicos diretamente na API através da barra de navegação.
+- **Sistema de Favoritos:** Permite marcar Pokémons como favoritos. Os dados são persistidos no dispositivo usando `AsyncStorage`, mantendo-se salvos mesmo após fechar a app.
+- **Temas (Dark/Light Mode):** Suporte completo a temas Claro, Escuro e Automático (baseado no sistema), gerido via Context API.
+- **Detalhes Completos:** Visualização de estatísticas (HP, Attack, etc.) com barras de progresso, habilidades, peso e altura.
+- **Zoom de Imagem:** Modal interativo para visualizar a imagem do Pokémon em ecrã inteiro.
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Tecnologias Utilizadas
 
-2. Start the app
+- **Core:** React Native, TypeScript, Expo.
+- **Navegação:** Expo Router (File-based routing).
+- **UI/Design:** React Native Paper.
+- **Arquitetura:** Padrão MVC (Model-View-Controller) com Custom Hooks.
+- **Persistência:** AsyncStorage.
+- **API:** [PokéAPI](https://pokeapi.co/).
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Como executar
 
-In the output, you'll find options to open the app in a
+1.  **Clone o repositório:**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+    ```bash
+    git clone [https://github.com/TEU-USUARIO/NOME-DO-REPO.git](https://github.com/TEU-USUARIO/NOME-DO-REPO.git)
+    cd NOME-DO-REPO
+    ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+2.  **Instale as dependências:**
 
-## Get a fresh project
+    ```bash
+    npm install
+    # ou
+    yarn install
+    ```
 
-When you're ready, run:
+3.  **Inicie o projeto:**
 
-```bash
-npm run reset-project
-```
+    ```bash
+    npx expo start
+    ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+4.  Escaneie o QR Code com o seu telemóvel (usando a app Expo Go) ou execute num emulador Android/iOS.
 
-## Learn more
+## 🧠 O que aprendi com este projeto
 
-To learn more about developing your project with Expo, look at the following resources:
+O desenvolvimento desta aplicação focou-se em ir além do básico, implementando padrões de código escaláveis e profissionais:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 1. Arquitetura e Organização
 
-## Join the community
+Aprendi a separar a lógica da interface. Em vez de ter toda a lógica dentro dos componentes visuais, criei **Controllers** (Custom Hooks) que gerem o estado e as regras de negócio:
 
-Join our community of developers creating universal apps.
+- `usePokemonListController`: Gere a paginação, a pesquisa e a alternância entre lista normal/favoritos.
+- `usePokemonProfileController`: Gere o carregamento de detalhes e a lógica de favoritar.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 2. Otimização de Performance
+
+Deparei-me com o desafio de renderizar listas longas e resolvi utilizando:
+
+- **FlatList Otimizada:** Uso de `windowSize`, `initialNumToRender` e `maxToRenderPerBatch`.
+- **Memoização:** Implementação de `React.memo` e `useCallback` nos cartões para evitar re-renderizações desnecessárias durante o scroll.
+
+### 3. Gestão de Estado Global e Persistência
+
+- Implementei um **Contexto (ThemeContext)** para gerir o tema da aplicação globalmente, permitindo que qualquer componente reaja à mudança de cor.
+- Utilizei o **AsyncStorage** para persistir preferências do utilizador (Tema e Favoritos) no sistema de ficheiros do dispositivo.
+
+### 4. Navegação Moderna
+
+Utilizei o **Expo Router**, a nova forma de navegação baseada em ficheiros (semelhante ao Next.js), injetando componentes complexos (como a Barra de Pesquisa e Botões) diretamente no cabeçalho nativo usando `Stack.Screen`.
+
+---
+
+Desenvolvido por [Teu Nome].
