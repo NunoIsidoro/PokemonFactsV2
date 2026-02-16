@@ -43,7 +43,7 @@ Uma aplicação móvel robusta para consultar Pokémons, desenvolvida com **Reac
     npx expo start
     ```
 
-4.  Escaneie o QR Code com o seu telemóvel (usando a app Expo Go) ou execute num emulador Android/iOS.
+4.  Escaneie o QR Code com o telemóvel (app Expo Go) ou execute num emulador Android/iOS.
 
 ## 🧠 O que aprendi com este projeto
 
@@ -53,8 +53,8 @@ O desenvolvimento desta aplicação focou-se em ir além do básico, implementan
 
 Aprendi a separar a lógica da interface. Em vez de ter toda a lógica dentro dos componentes visuais, criei **Controllers** (Custom Hooks) que gerem o estado e as regras de negócio:
 
-- `usePokemonListController`: Gere a paginação, a pesquisa e a alternância entre lista normal/favoritos.
-- `usePokemonProfileController`: Gere o carregamento de detalhes e a lógica de favoritar.
+- `usePokemonListController`: Gere a paginação, a pesquisa e a rotativilidade entre lista normal/favoritos.
+- `usePokemonProfileController`: Gere o carregamento de detalhes e a lógica de Favoritos.
 
 ### 2. Otimização de Performance
 
@@ -74,4 +74,4 @@ Utilizei o **Expo Router**, a nova forma de navegação baseada em ficheiros (se
 
 ---
 
-Desenvolvido por [Teu Nome].
+Desenvolvido por Nuno Fernandes.
