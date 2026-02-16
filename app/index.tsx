@@ -11,6 +11,7 @@ import {
 import { ActivityIndicator, FAB, Text, useTheme } from "react-native-paper";
 import CardComponent from "../src/components/PokemonCard";
 import { usePokemonListController } from "../src/controllers/usePokemonListController";
+import { Pokemon } from "@/src/models/Pokemon";
 
 export default function Index() {
   const {
@@ -28,7 +29,7 @@ export default function Index() {
   const theme = useTheme();
 
   const renderPokemonItem = useCallback(
-    ({ item }: { item: any }) => (
+    ({ item }: { item: Pokemon }) => (
       <CardComponent title={item.name} image={item.image} />
     ),
     [],
@@ -77,12 +78,7 @@ export default function Index() {
             keyExtractor={(item) => item.name}
             numColumns={2}
             windowSize={5}
-            renderItem={(renderPokemonItem) => (
-              <CardComponent
-                title={renderPokemonItem.item.name}
-                image={renderPokemonItem.item.image}
-              />
-            )}
+            renderItem={renderPokemonItem}
             contentContainerStyle={{
               padding: 3,
               alignItems: "center",

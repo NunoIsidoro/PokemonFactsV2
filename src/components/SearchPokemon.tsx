@@ -1,13 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import { Appbar, Searchbar, useTheme } from "react-native-paper";
+import { SearchPokemonProps } from "../models/Pokemon";
 import { ThemeToggle } from "./ThemeToggle";
-
-interface SearchPokemonProps {
-  searchQuery: string;
-  setSearchQuery: (query: string) => void;
-  searchPokemon: () => void;
-}
 
 export default function SearchPokemon({
   searchQuery,

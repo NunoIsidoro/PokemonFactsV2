@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Pokemon } from "../models/Pokemon";
+import { getFavorites } from "../services/favoriteService";
 import {
   getListPokemons,
   getPokemon,
   PAGE_SIZE,
 } from "../services/pokemonService";
-// Importa o serviço de favoritos que criámos antes
-import { getFavorites } from "../services/favoriteService";
 
 export function usePokemonListController() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -14,29 +13,24 @@ export function usePokemonListController() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  // Estados de Pesquisa
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  // NOVO: Estado para controlar se estamos a ver favoritos
   const [isFavoritesMode, setIsFavoritesMode] = useState(false);
 
   useEffect(() => {
     loadInitialPokemons();
   }, []);
 
-  // Monitoriza a pesquisa (mantém-se igual)
   useEffect(() => {
     if (searchQuery === "") {
       setIsSearching(false);
-      // Só recarrega a lista inicial se NÃO estivermos no modo favoritos
       if (!isFavoritesMode) loadInitialPokemons();
     }
   }, [searchQuery, isFavoritesMode]);
 
   async function loadInitialPokemons() {
     setLoading(true);
-    // Garante que resetamos o modo
     setIsFavoritesMode(false);
     const data = await getListPokemons(0);
     if (data) {
@@ -47,7 +41,6 @@ export function usePokemonListController() {
   }
 
   async function fetchNextPage() {
-    // CORREÇÃO: Não carrega mais páginas se estivermos a pesquisar OU a ver favoritos
     if (loadingMore || loading || isSearching || isFavoritesMode) return;
 
     setLoadingMore(true);
@@ -64,7 +57,7 @@ export function usePokemonListController() {
     if (!searchQuery.trim()) return;
     setLoading(true);
     setIsSearching(true);
-    setIsFavoritesMode(false); // Sai dos favoritos se pesquisar
+    setIsFavoritesMode(false);
 
     const formattedQuery = searchQuery.toLowerCase();
     const data = await getPokemon(formattedQuery);

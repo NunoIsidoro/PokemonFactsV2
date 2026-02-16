@@ -16,3 +16,9 @@ export interface PokemonStats {
   name: string;
   value: number;
 }
+
+export interface SearchPokemonProps {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  searchPokemon: () => void;
+}

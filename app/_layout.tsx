@@ -3,16 +3,14 @@ import { useTheme } from "react-native-paper";
 import { ThemeToggle } from "../src/components/ThemeToggle";
 import { ThemeProvider } from "../src/context/ThemeContext";
 
-// Componente interno para aceder ao tema (porque o Provider está fora)
 function AppStack() {
-  const theme = useTheme(); // Este tema já vem do Contexto
+  const theme = useTheme(); 
 
   return (
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: theme.colors.surface },
         headerTintColor: theme.colors.primary,
-        // Adiciona o botão globalmente à direita
         headerRight: () => <ThemeToggle />,
       }}
     >
