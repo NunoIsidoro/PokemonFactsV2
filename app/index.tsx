@@ -1,4 +1,5 @@
 import SearchPokemon from "@/src/components/SearchPokemon";
+import { Pokemon } from "@/src/models/Pokemon";
 import { Stack } from "expo-router";
 import React, { useCallback } from "react";
 import {
@@ -11,7 +12,6 @@ import {
 import { ActivityIndicator, FAB, Text, useTheme } from "react-native-paper";
 import CardComponent from "../src/components/PokemonCard";
 import { usePokemonListController } from "../src/controllers/usePokemonListController";
-import { Pokemon } from "@/src/models/Pokemon";
 
 export default function Index() {
   const {
@@ -24,15 +24,20 @@ export default function Index() {
     searchPokemon,
     isFavoritesMode,
     toggleShowFavorites,
+    favorites,
   } = usePokemonListController();
 
   const theme = useTheme();
 
   const renderPokemonItem = useCallback(
     ({ item }: { item: Pokemon }) => (
-      <CardComponent title={item.name} image={item.image} />
+      <CardComponent
+        title={item.name}
+        image={item.image}
+        isFavorite={favorites.includes(item.name)}
+      />
     ),
-    [],
+    [favorites],
   );
 
   if (loading && pokemons.length === 0) {

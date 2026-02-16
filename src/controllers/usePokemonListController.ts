@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import { Pokemon } from "../models/Pokemon";
 import { getFavorites } from "../services/favoriteService";
 import {
@@ -18,9 +19,22 @@ export function usePokemonListController() {
 
   const [isFavoritesMode, setIsFavoritesMode] = useState(false);
 
+  const [favorites, setFavorites] = useState<string[]>([]);
+
   useEffect(() => {
     loadInitialPokemons();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadFavorites();
+    }, []),
+  );
+
+  async function loadFavorites() {
+    const data = await getFavorites();
+    setFavorites(data);
+  }
 
   useEffect(() => {
     if (searchQuery === "") {
@@ -105,5 +119,6 @@ export function usePokemonListController() {
     searchPokemon,
     isFavoritesMode,
     toggleShowFavorites,
+    favorites,
   };
 }
